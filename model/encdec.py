@@ -6,8 +6,6 @@ from einops import rearrange
 
 
 
-
-
 class LearnableSoftplus(nn.Module):
     """
     Learnable Softplus Activation Function for 1D inputs.
@@ -194,15 +192,10 @@ class PhaseDecoder(nn.Module):
     """
     PhaseDecoder module for decoding phase information.
     """
-    def __init__(self, cfg, single=False):
+    def __init__(self, cfg):
         super(PhaseDecoder, self).__init__()
-        self.dense_block = DenseBlock(cfg, depth=4, single=single)
-        self.single = single
-        if self.single:
-            self.hid_feature = cfg['model_cfg']['stft_hid_feature']
-        else:
-            self.hid_feature = cfg['model_cfg']['stft_hid_feature'] + cfg['model_cfg']['waveform_final_feature']
-
+        self.dense_block = DenseBlock(cfg, depth=4)
+        self.hid_feature = cfg['model_cfg']['hid_feature']
         self.output_channel = cfg['model_cfg']['output_channel']
 
         self.phase_conv = nn.Sequential(
