@@ -444,7 +444,7 @@ def main():
 
     # RAF training configuration
     a = easydict.EasyDict({
-    'config': 'configs/semambapp_cfg.yaml',
+    'config': 'semambapp_cfg.yaml',
     'clean_train_json': 'data/train_speech.json',
     'noise_train_json': 'data/train_noise.json',
     'rir_train_json': 'data/train_rir.json',
