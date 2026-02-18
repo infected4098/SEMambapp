@@ -12,7 +12,12 @@ pip install -r requirements.txt
 
 ## Datasets
 
-0. You can try GSR on arbitrary dataset but we list all the dataset sources used in our experiments.
+You can try GSR on arbitrary dataset but we list all the dataset sources used in our experiments. 
+You can list the filepaths to `data/train_speech.json`, `data/train_noise.json`, `data/train_rir.json`, `data/val_clean.json`, `data/val_degraded.json`. 
+
+
+## Link to datasets
+
 1. Download [VCTK](https://datashare.ed.ac.uk/handle/10283/2950) for speech.
 2. Download [DNS Challenge 2020](https://github.com/microsoft/DNS-Challenge) and [WHAM!](http://wham.whisper.ai/) for noise.
 3. Download [Arni](https://github.com/AaltoAcousticsLab/aalto-datasets) and [DNS5](https://github.com/microsoft/DNS-Challenge) for reverberation.
