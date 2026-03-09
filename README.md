@@ -1,5 +1,5 @@
 # SEMambapp
-An official code repository for SEMamba++.
+(Submitted to Interspeech 2026) An official code repository for SEMamba++.
 
 
 This repository provides the official codebase and resources for SEMamba++ as described in our research. This repository is currently anonymous and will remain so until the publication process is complete, after which it will be de-anonymized with full author and project details.
