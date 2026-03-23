@@ -172,47 +172,47 @@ class SEMambapp_bottleneck(nn.Module):
         Tensor: Output tensor after applying temporal and frequency Mamba blocks.
         """
         b, c, t, f = x.size()
-        x = self.downsamples[0](x) # [B, C, T, F//2]
-        b, c, t, f = x.size()
-        x = x.permute(0, 3, 2, 1).contiguous().view(b*f, t, c)
-        x = self.tlinears[0]( self.time_mambas[0](x).permute(0,2,1) ).permute(0,2,1) + x # [BF, T, C]
-        x = x.view(b, f, t, c).permute(0,2, 1, 3).contiguous().view(b*t, f, c)
-        x = self.freq_layernorm[0](x)
-        x = x.view(b, t, f, c).permute(0,3,1,2) # [B, C, T, F]
-        x = self.freq_ffns[0](x) + x
-        x = self.channel_ffns[0](x) + x
-        res = x
+        x_level1 = self.downsamples[0](x) # [B, C, T, F//2]
+        x_level2 = self.downsamples[1](x_level1) # [B, EC, T, F//4]
+        x_level3 = self.downsamples[2](x_level2) # [B, EC**2, T, F//8]  
 
-        x_ds = self.downsamples[1](x) # [B, EC, T, F//4]
-        b_ds, c_ds, t_ds, f_ds = x_ds.size()
-        x_ds = x_ds.permute(0, 3, 2, 1).contiguous().view(b_ds*f_ds, t_ds, c_ds)
-        x_ds = self.tlinears[1]( self.time_mambas[1](x_ds).permute(0,2,1) ).permute(0,2,1) + x_ds
-        x_ds = x_ds.view(b_ds, f_ds, t_ds, c_ds).permute(0, 2, 1, 3).contiguous().view(b_ds*t_ds, f_ds, c_ds)
-        x_ds = self.freq_layernorm[1](x_ds)
-        x_ds = x_ds.view(b_ds, t_ds, f_ds, c_ds).permute(0, 3, 1, 2) # [B, EC, T, F//4]
-        x_ds = self.freq_ffns[1](x_ds) + x_ds
-        x_ds = self.channel_ffns[1](x_ds) + x_ds
+        b, c, t, f = x_level1.size()
+        x_level1 = x_level1.permute(0, 3, 2, 1).contiguous().view(b*f, t, c)
+        x_level1 = self.tlinears[0]( self.time_mambas[0](x_level1).permute(0,2,1) ).permute(0,2,1) + x_level1 # [BF, T, C]
+        x_level1 = x_level1.view(b, f, t, c).permute(0,2, 1, 3).contiguous().view(b*t, f, c)
+        x_level1 = self.freq_layernorm[0](x_level1)
+        x_level1 = x_level1.view(b, t, f, c).permute(0,3,1,2) # [B, C, T, F]
+        x_level1 = self.freq_ffns[0](x_level1) + x_level1
+        x_level1 = self.channel_ffns[0](x_level1) + x_level1
+        res = x_level1
+
+        b_ds, c_ds, t_ds, f_ds = x_level2.size()
+        x_level2 = x_level2.permute(0, 3, 2, 1).contiguous().view(b_ds*f_ds, t_ds, c_ds)
+        x_level2 = self.tlinears[1]( self.time_mambas[1](x_level2).permute(0,2,1) ).permute(0,2,1) + x_level2
+        x_level2 = x_level2.view(b_ds, f_ds, t_ds, c_ds).permute(0, 2, 1, 3).contiguous().view(b_ds*t_ds, f_ds, c_ds)
+        x_level2 = self.freq_layernorm[1](x_level2)
+        x_level2 = x_level2.view(b_ds, t_ds, f_ds, c_ds).permute(0, 3, 1, 2) # [B, EC, T, F//4]
+        x_level2 = self.freq_ffns[1](x_level2) + x_level2
+        x_level2 = self.channel_ffns[1](x_level2) + x_level2
 
 
-        x_ds_2 = self.downsamples[2](x_ds) # [B, E**2 C, T//4, F//8]
-        b_ds, c_ds, t_ds, f_ds = x_ds_2.size()
-        x_ds_2 = x_ds_2.permute(0, 3, 2, 1).contiguous().view(b_ds*f_ds, t_ds, c_ds) # [BF, T, C]
-        x_ds_2 = self.tlinears[2]( self.time_mambas[2](x_ds_2).permute(0,2,1) ).permute(0,2,1) + x_ds_2
-        x_ds_2 = x_ds_2.view(b_ds, f_ds, t_ds, c_ds).permute(0, 2, 1, 3).contiguous().view(b_ds*t_ds, f_ds, c_ds) # [BT, F//8, E**2C]
-        x_ds_2 = self.freq_layernorm[2](x_ds_2)
-        x_ds_2 = x_ds_2.view(b_ds, t_ds, f_ds, c_ds).permute(0, 3, 1, 2) # [B, E**2 C, T//4, F//8] 
-        x_ds_2 = self.freq_ffns[2](x_ds_2) + x_ds_2 
-        x_ds_2 = self.channel_ffns[2](x_ds_2) + x_ds_2
+        b_ds, c_ds, t_ds, f_ds = x_level3.size()
+        x_level3 = x_level3.permute(0, 3, 2, 1).contiguous().view(b_ds*f_ds, t_ds, c_ds) # [BF, T, C]
+        x_level3 = self.tlinears[2]( self.time_mambas[2](x_level3).permute(0,2,1) ).permute(0,2,1) + x_level3
+        x_level3 = x_level3.view(b_ds, f_ds, t_ds, c_ds).permute(0, 2, 1, 3).contiguous().view(b_ds*t_ds, f_ds, c_ds) # [BT, F//8, E**2C]
+        x_level3 = self.freq_layernorm[2](x_level3)
+        x_level3 = x_level3.view(b_ds, t_ds, f_ds, c_ds).permute(0, 3, 1, 2) # [B, E**2 C, T//4, F//8] 
+        x_level3 = self.freq_ffns[2](x_level3) + x_level3 
+        x_level2 = self.channel_ffns[2](x_level2) + x_level2
         # hierachical upsampling
-        x_us_2 = self.upsamples[0](x_ds_2) # [B, EC, T//2, F//4]
+        x_us_2 = self.upsamples[0](x_level3) # [B, EC, T//2, F//4]
 
-
-        x_ds = torch.cat([x_ds, x_us_2], dim=1) # [B, 2EC, T//2, F//4]
+        x_ds = torch.cat([x_level2, x_us_2], dim=1) # [B, 2EC, T//2, F//4]
         x_ds = self.gates[0](x_ds) # [B, EC, T//2, F//4]
 
         x_us = self.upsamples[1](x_ds) # [B, C, T, F//2]
 
-        x = torch.cat([x, x_us], dim=1) # [B, 2C, T, F//2]
+        x = torch.cat([x_level1, x_us], dim=1) # [B, 2C, T, F//2]
         x = self.gates[1](x) # [B, C, T, F//2]
 
         x = res + x
