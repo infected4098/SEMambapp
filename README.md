@@ -31,5 +31,5 @@ Pretrained models will be made publicly available upon completion of the publica
 
 SEMamba: [SEMamba](https://github.com/RoyChao19477/SEMamba)
 BigVGAN: [BigVGAN](https://github.com/NVIDIA/BigVGAN)
-MP-SENet: [MPSENet](https://github.com/yxlu-0102/MP-SENet)
+MPSENet: [MPSENet](https://github.com/yxlu-0102/MP-SENet)
 
