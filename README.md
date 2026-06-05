@@ -8,7 +8,14 @@ SEMamba++ is a general speech restoration (GSR) framework that leverages global,
 
 ## Prerequisites
 
-Install all required dependencies (Python>=3.10):
+Create a conda environment with Python>=3.10
+
+```bash
+conda create -n semambapp python==3.10
+cd semambapp
+```
+
+Install all required dependencies:
 
 ```bash
 pip install -r requirements.txt
