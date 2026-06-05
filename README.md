@@ -54,9 +54,9 @@ The released model was trained on VCTK and LibriTTS (~500 hours of speech combin
 
 ## References
 
-- [SEMamba](https://github.com/RoyChao19477/SEMamba) — Mamba-based speech enhancement backbone
-- [BigVGAN](https://github.com/NVIDIA/BigVGAN) — Neural vocoder (NVIDIA)
-- [MPSENet](https://github.com/yxlu-0102/MP-SENet) — Multi-scale phase-aware speech enhancement
+- [SEMamba](https://github.com/RoyChao19477/SEMamba) 
+- [BigVGAN](https://github.com/NVIDIA/BigVGAN) 
+- [MPSENet](https://github.com/yxlu-0102/MP-SENet) 
 
 ---
 
