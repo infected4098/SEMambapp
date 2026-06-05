@@ -13,9 +13,6 @@ attrs==26.1.0
 audioread==3.1.0
 auraloss==0.4.0
 babel==2.18.0
-backports.strenum==1.3.1
-certifi==2026.5.20
-cffi==2.0.0
 charset-normalizer==3.4.7
 ci_sdr==0.0.2
 click==8.4.1
