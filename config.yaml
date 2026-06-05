@@ -12,7 +12,7 @@ env_setting:
 
 
 degradation_cfg:
-  snr: [-10, -5, 0, 5, 10, 15, 20]
+  snr: [-5, 0, 5, 10, 15, 20]
   bandwidth_sr: [4000, 6000, 8000, 10000, 12000, 14000]
   bandwidth_type : ["kaiser_best", "kaiser_fast", "scipy", "polyphase"]
   lowpass_type: ["butter", "cheby1", "cheby2", "bessel", "ellip"]
@@ -22,8 +22,8 @@ degradation_cfg:
   packet_duration: [10, 20]
   packet_loss_rate: [0.05, 0.25]
   noise_prob: 1.0
-  reverb_prob: 0.7
-  bandwidth_prob: 0.7
+  reverb_prob: 0.5
+  bandwidth_prob: 0.5
   clipping_prob: 0.5
   packet_loss_prob: 0.2
 
@@ -38,7 +38,7 @@ training_cfg:
   adam_b1: 0.8  # Beta1 hyperparameter for the AdamW optimizer.
   adam_b2: 0.99  # Beta2 hyperparameter for the AdamW optimizer.
   lr_decay: 0.99  # Learning rate decay per epoch.
-  segment_size: 24000  # Audio segment size used during training, dependent on sampling rate.
+  segment_size: 48000  # Audio segment size used during training, dependent on sampling rate.
   loss:
     adv_g: 1.0
     metric: 0.05
