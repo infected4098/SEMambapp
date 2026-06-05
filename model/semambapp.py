@@ -275,8 +275,6 @@ class SEMambapp(nn.Module):
 
         # Initialize dense encoder
         self.dense_encoder = DenseEncoder(cfg)
-        # abl_gloco_v11_timenoreduce_MambaFFN_gloco_nonorm 일 때에는 
-        #self.TSMamba = nn.ModuleList([MambaFFNBlock_gloco_timenoreduce_real(cfg, single=True) for _ in range(self.num_tscblocks)])
         
         # Initialize Mamba blocks
         self.TSMamba = nn.ModuleList([SEMambapp_bottleneck(cfg) for _ in range(self.num_tscblocks)]) 
@@ -284,7 +282,7 @@ class SEMambapp(nn.Module):
         #self.TSMamba_loc = nn.ModuleList([TFMambaBlock(cfg, single=True) for _ in range(self.num_tscblocks//2)])
         # Initialize decoders
         self.mask_decoder = MagDecoder(cfg)
-        self.phase_decoder = PhaseDecoder(cfg, single=True)
+        self.phase_decoder = PhaseDecoder(cfg)
 
     def forward(self, noisy_mag, noisy_pha):
         """
