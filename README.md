@@ -12,6 +12,7 @@ Create a conda environment with Python>=3.10
 
 ```bash
 conda create -n semambapp python==3.10
+conda activate semambapp
 cd semambapp
 ```
 
