@@ -1,12 +1,13 @@
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from mamba_ssm.modules.mamba_simple import Mamba
 from mamba_ssm.modules.block import Block
 from mamba_ssm.models.mixer_seq_simple import _init_weights
 from mamba_ssm.ops.triton.layer_norm import RMSNorm
 from functools import partial
 from .frequencyglp import FrequencyGLP
-from .FAN import FANFFN, FANFFN_gate_freq, FANFFN_gate_channel
+from .FAN import FANFFN_gate_freq, FANFFN_gate_channel
 from .encdec import DenseEncoder, MagDecoder, PhaseDecoder
 from einops import rearrange
 
