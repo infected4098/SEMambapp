@@ -13,12 +13,13 @@ Create a conda environment with Python>=3.10
 ```bash
 conda create -n semambapp python==3.10
 conda activate semambapp
-cd semambapp
 ```
 
 Install all required dependencies:
 
 ```bash
+git clone https://github.com/infected4098/SEMambapp.git
+cd SEMambapp
 pip install -r requirements.txt
 ```
 
