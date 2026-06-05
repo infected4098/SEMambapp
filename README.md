@@ -1,35 +1,72 @@
-# SEMambapp
-(Submitted to Interspeech 2026) An official code repository for SEMamba++.
+# SEMamba++ (Interspeech 2026 · Long Paper Track)
 
+Official code repository for SEMamba++. [[Demo]](https://sites.google.com/view/semambapp) [[Paper (arXiv)]](https://arxiv.org/abs/2603.11669)
 
-This repository provides the official codebase and resources for SEMamba++ as described in our research. This repository is currently anonymous and will remain so until the publication process is complete, after which it will be de-anonymized with full author and project details.
+SEMamba++ is a general speech restoration (GSR) framework that leverages global, local, and periodic spectral patterns via a Mamba-based architecture. It handles a range of degradation conditions including noise, reverberation, and clipping.
+
+---
+
 ## Prerequisites
-1. Install the dependencies.
-```
+
+Install all required dependencies:
+
+```bash
 pip install -r requirements.txt
 ```
-2. For Mamba, we recommend installing through [SEMamba](https://github.com/RoyChao19477/SEMamba)'s implementation.
+
+For the Mamba backbone, follow the installation guide from [SEMamba](https://github.com/RoyChao19477/SEMamba), which resolves CUDA-specific build issues.
+
+---
 
 ## Datasets
 
-You can try GSR on arbitrary dataset but we list all the dataset sources used in our experiments. 
-You can list the filepaths to `data/train_speech.json`, `data/train_noise.json`, `data/train_rir.json`, `data/val_clean.json`, `data/val_degraded.json`. 
+SEMamba++ can be trained on any dataset that provides speech, noise, and room impulse response (RIR) samples. Point each split to the corresponding JSON manifest file:
 
+| Split | File |
+|---|---|
+| Training speech | `data/train_speech.json` |
+| Training noise | `data/train_noise.json` |
+| Training RIR | `data/train_rir.json` |
+| Validation (clean) | `data/val_clean.json` |
+| Validation (degraded) | `data/val_degraded.json` |
 
-## Link to datasets
+### Download sources
 
-1. Download [VCTK](https://datashare.ed.ac.uk/handle/10283/2950) for speech.
-2. Download [DNS Challenge 2020](https://github.com/microsoft/DNS-Challenge) and [WHAM!](http://wham.whisper.ai/) for noise.
-3. Download [Arni](https://github.com/AaltoAcousticsLab/aalto-datasets) and [DNS5](https://github.com/microsoft/DNS-Challenge) for reverberation.
+- **Speech:** [VCTK](https://datashare.ed.ac.uk/handle/10283/2950), LibriTTS
+- **Noise:** [DNS Challenge 2020](https://github.com/microsoft/DNS-Challenge), [WHAM!](http://wham.whisper.ai/)
+- **RIR:** [Arni](https://github.com/AaltoAcousticsLab/aalto-datasets), [DNS5](https://github.com/microsoft/DNS-Challenge)
 
+---
 
-## Notices
+## Pretrained weights
 
-Pretrained models will be made publicly available upon completion of the publication process.
+Pretrained weights will be released on Hugging Face (coming soon).
+
+The released model was trained on VCTK and LibriTTS (~500 hours of speech combined).
+
+---
 
 ## References
 
-SEMamba: [SEMamba](https://github.com/RoyChao19477/SEMamba)
-BigVGAN: [BigVGAN](https://github.com/NVIDIA/BigVGAN)
-MPSENet: [MPSENet](https://github.com/yxlu-0102/MP-SENet)
+- [SEMamba](https://github.com/RoyChao19477/SEMamba) — Mamba-based speech enhancement backbone
+- [BigVGAN](https://github.com/NVIDIA/BigVGAN) — Neural vocoder (NVIDIA)
+- [MPSENet](https://github.com/yxlu-0102/MP-SENet) — Multi-scale phase-aware speech enhancement
 
+---
+
+## Citation
+
+If you find SEMamba++ useful in your work, please cite:
+
+```bibtex
+@misc{lee2026semambageneralspeechrestoration,
+  title         = {SEMamba++: A General Speech Restoration Framework
+                   Leveraging Global, Local, and Periodic Spectral Patterns},
+  author        = {Yongjoon Lee and Jung-Woo Choi},
+  year          = {2026},
+  eprint        = {2603.11669},
+  archivePrefix = {arXiv},
+  primaryClass  = {eess.AS},
+  url           = {https://arxiv.org/abs/2603.11669}
+}
+```
