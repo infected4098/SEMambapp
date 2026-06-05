@@ -8,7 +8,7 @@ SEMamba++ is a general speech restoration (GSR) framework that leverages global,
 
 ## Prerequisites
 
-Install all required dependencies:
+Install all required dependencies (Python>=3.10):
 
 ```bash
 pip install -r requirements.txt
