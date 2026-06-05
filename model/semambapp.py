@@ -1,8 +1,9 @@
 import torch
 import torch.nn as nn
-from mamba_ssm.modules.mamba_simple import Mamba, Block
+from mamba_ssm.modules.mamba_simple import Mamba
+from mamba_ssm.modules.block import Block
 from mamba_ssm.models.mixer_seq_simple import _init_weights
-from mamba_ssm.ops.triton.layernorm import RMSNorm
+from mamba_ssm.ops.triton.layer_norm import RMSNorm
 from functools import partial
 from .frequencyglp import FrequencyGLP
 from .FAN import FANFFN, FANFFN_gate_freq, FANFFN_gate_channel
@@ -38,6 +39,7 @@ def create_block(
     ):
     d_state = cfg['model_cfg']['d_state'] # 16
     d_conv = cfg['model_cfg']['d_conv'] # 4
+    head_dim = cfg['model_cfg']['head_dim'] # 16
     if expand is None:
         expand = cfg['model_cfg']['expand'] # 4
     norm_epsilon = cfg['model_cfg']['norm_epsilon'] # 0.00001
@@ -46,9 +48,11 @@ def create_block(
     norm_cls = partial(
         nn.LayerNorm if not rms_norm else RMSNorm, eps=norm_epsilon
     )
+    mlp_cls = nn.Identity
     block = Block(
             d_model,
             mixer_cls,
+            mlp_cls=mlp_cls,
             norm_cls=norm_cls,
             fused_add_norm=fused_add_norm,
             residual_in_fp32=residual_in_fp32,
