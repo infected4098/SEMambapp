@@ -36,21 +36,26 @@ SEMamba++ can be trained on any dataset that provides speech, noise, and room im
 | Validation (clean) | `data/val_clean.json` |
 | Validation (degraded) | `data/val_degraded.json` |
 
-### Download sources
-
-- **Speech:** [VCTK](https://datashare.ed.ac.uk/handle/10283/2950), LibriTTS
-- **Noise:** [DNS Challenge 2020](https://github.com/microsoft/DNS-Challenge), [WHAM!](http://wham.whisper.ai/)
-- **RIR:** [Arni](https://github.com/AaltoAcousticsLab/aalto-datasets), [DNS5](https://github.com/microsoft/DNS-Challenge)
-
----
 
 ## Pretrained weights
 
-Pretrained weights will be released on [HuggingFace](https://huggingface.co/yongjoonlee/semambapp/resolve/main/semambapp.pth).
+Pretrained weights aree released on [HuggingFace](https://huggingface.co/yongjoonlee/semambapp/resolve/main/semambapp.pth).
 
 The released model was trained on VCTK and LibriTTS (~500 hours of speech combined).
 
 ---
+
+## Inference
+```python
+python infer.py \
+    --input_wav degraded.wav \
+    --output_wav restored.wav \
+    --checkpoint semambapp.pth \
+    --config config.yaml
+```
+
+---
+
 
 ## References
 
