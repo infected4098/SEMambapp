@@ -39,7 +39,7 @@ SEMamba++ can be trained on any dataset that provides speech, noise, and room im
 
 ## Pretrained weights
 
-Pretrained weights aree released on [HuggingFace](https://huggingface.co/yongjoonlee/semambapp/resolve/main/semambapp.pth).
+Pretrained weights are released on [HuggingFace](https://huggingface.co/yongjoonlee/semambapp/resolve/main/semambapp.pth).
 
 The released model was trained on VCTK and LibriTTS (~500 hours of speech combined).
 
