@@ -14,7 +14,13 @@ Install all required dependencies:
 pip install -r requirements.txt
 ```
 
-For the Mamba backbone, follow the installation guide from [SEMamba](https://github.com/RoyChao19477/SEMamba), which resolves CUDA-specific build issues.
+For Mamba, use the below command to install:
+
+```bash
+pip install mamba-ssm[causal-conv1d] --no-build-isolation
+```
+
+Or alternatively, you should follow the installation guide from [SEMamba](https://github.com/RoyChao19477/SEMamba), which resolves CUDA-specific build issues.
 
 ---
 
