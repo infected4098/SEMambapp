@@ -26,7 +26,7 @@ pip install -r requirements.txt
 For Mamba, use the below command to install:
 
 ```bash
-pip install mamba-ssm[causal-conv1d] --no-build-isolation
+MAMBA_FORCE_BUILD=TRUE pip install --no-cache-dir --force-reinstall git+https://github.com/state-spaces/mamba.git --no-build-isolation
 ```
 
 Or alternatively, you should follow the installation guide from [SEMamba](https://github.com/RoyChao19477/SEMamba), which resolves CUDA-specific build issues.
