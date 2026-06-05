@@ -67,7 +67,6 @@ def create_block(
     ):
     d_state = cfg['model_cfg']['d_state'] # 16
     d_conv = cfg['model_cfg']['d_conv'] # 4
-    head_dim = cfg['model_cfg']['head_dim'] # 16
     if expand is None:
         expand = cfg['model_cfg']['expand'] # 4
     norm_epsilon = cfg['model_cfg']['norm_epsilon'] # 0.00001
