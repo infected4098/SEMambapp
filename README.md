@@ -1,6 +1,6 @@
 # :speech_balloon: SEMamba++ (Interspeech 2026 · Long Paper Track)
 
-Official code repository for SEMamba++. [Demo](https://sites.google.com/view/semambapp) [Paper (arXiv)](https://arxiv.org/abs/2603.11669) [Hugging Face](https://huggingface.co/yongjoonlee/semambapp)
+Official code repository for SEMamba++. [Demo](https://sites.google.com/view/semambapp) [Paper](https://arxiv.org/abs/2603.11669) [Hugging Face](https://huggingface.co/yongjoonlee/semambapp)
 
 SEMamba++ is a general speech restoration (GSR) framework that leverages global, local, and periodic spectral patterns via a Mamba-based architecture. It handles a range of degradation conditions including noise, reverberation, and clipping.
 
