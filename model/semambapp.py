@@ -230,7 +230,7 @@ class SEMambapp_bottleneck(nn.Module):
         x_level3 = self.freq_layernorm[2](x_level3)
         x_level3 = x_level3.view(b_ds, t_ds, f_ds, c_ds).permute(0, 3, 1, 2) # [B, E**2 C, T//4, F//8] 
         x_level3 = self.freq_ffns[2](x_level3) + x_level3 
-        x_level2 = self.channel_ffns[2](x_level2) + x_level2
+        x_level3 = self.channel_ffns[2](x_level3) + x_level3
         # hierachical upsampling
         x_us_2 = self.upsamples[0](x_level3) # [B, EC, T//2, F//4]
 
