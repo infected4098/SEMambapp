@@ -17,7 +17,7 @@ SEMamba++ is a general speech restoration (GSR) framework that leverages global,
 
 ## Prerequisites
 
-Create a conda environment with Python>=3.10 (CUDA>=13.0 required, otherwise you should install through [SEMamba](https://github.com/RoyChao19477/SEMamba))
+Create a conda environment with Python>=3.10 required, otherwise you should install through [SEMamba](https://github.com/RoyChao19477/SEMamba))
 
 ```bash
 conda create -n semambapp python==3.10
@@ -35,8 +35,9 @@ pip install -r requirements.txt
 For Mamba, use the below command to install:
 
 ```bash
-pip install "mamba-ssm[causal-conv1d]" --no-build-isolation
+pip install --no-cache-dir --no-build-isolation --no-deps causal-conv1d==1.7.0 mamba-ssm==2.3.2.post1
 ```
+
 
 Or alternatively, you should follow the installation guide from [SEMamba](https://github.com/RoyChao19477/SEMamba), which resolves CUDA-specific build issues.
 
