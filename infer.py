@@ -28,6 +28,11 @@ from model.semambapp import SEMambapp
 from utils import load_config
 
 
+def peak_normalize(audio_tensor, eps=1e-9):
+    peak = audio_tensor.abs().max()
+    return audio_tensor / (peak + eps), peak
+
+
 def infer(args):
     log = logging.getLogger("SEMamba++")
 
@@ -64,13 +69,9 @@ def infer(args):
     duration = len(noisy_wav) / sr
     noisy_wav = torch.FloatTensor(noisy_wav).to(device)
     log.info(f"Audio loaded — duration: {duration:.2f}s, samples: {len(noisy_wav)}")
+    noisy_wav, peak = peak_normalize(noisy_wav)
 
-    # ---- RMS normalization (same as training) ----
-    norm_factor = torch.sqrt(
-        torch.tensor(len(noisy_wav), dtype=torch.float32, device=device)
-        / torch.sum(noisy_wav ** 2.0).clamp(min=1e-8)
-    )
-    noisy_wav = (noisy_wav * norm_factor).unsqueeze(0)  # [1, T]
+
 
     # ---- STFT → model → iSTFT ----
     log.info("Inference started...")
@@ -93,7 +94,7 @@ def infer(args):
     log.info(f"Inference finished in {elapsed:.3f}s (RTF: {elapsed / duration:.3f})")
 
     # ---- undo normalization ----
-    audio_g = audio_g / norm_factor
+    audio_g = audio_g * peak
 
     # ---- save ----
     os.makedirs(os.path.dirname(args.output_wav) or ".", exist_ok=True)
