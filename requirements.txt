@@ -1,3 +1,8 @@
+--extra-index-url https://download.pytorch.org/whl/cu126
+torch==2.10.0+cu126
+torchvision==0.25.0+cu126
+torchaudio==2.10.0+cu126
+
 accelerate==1.13.0
 audioread==3.1.0
 auraloss==0.4.0
@@ -41,16 +46,11 @@ soxr==1.1.0
 sympy==1.14.0
 termcolor==3.3.0
 threadpoolctl==3.6.0
-tilelang==0.1.8
 tokenizers==0.22.2
-torch==2.12.0
-torchaudio==2.11.0
 torchcodec==0.13.0
 torchmetrics==1.9.0
-torchvision==0.27.0
 tqdm==4.67.3
 transformers==5.9.0
-triton==3.7.0
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 urllib3==2.7.0
