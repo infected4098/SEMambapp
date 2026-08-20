@@ -34,8 +34,8 @@ class LearnableSoftplus(nn.Module):
         Returns:
         - torch.Tensor: Output tensor after applying the learnable sigmoid activation.
         """
-        beta = torch.exp(self.beta).view(1, -1, 1)
-        return (1/beta+1e-6) * torch.log(1 + torch.exp(beta * x))
+        beta = torch.exp(self.beta.clamp(max=40.0)).view(1, -1, 1)
+        return (1/beta+1e-6) * F.softplus(beta * x)
 
 
 
