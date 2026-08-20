@@ -70,7 +70,7 @@ def infer(args):
     noisy_wav = torch.FloatTensor(noisy_wav).to(device)
     log.info(f"Audio loaded — duration: {duration:.2f}s, samples: {len(noisy_wav)}")
     noisy_wav, peak = peak_normalize(noisy_wav)
-
+    noisy_wav = noisy_wav.unsqueeze(0)
 
 
     # ---- STFT → model → iSTFT ----
