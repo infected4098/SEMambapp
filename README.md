@@ -65,13 +65,24 @@ The released model was trained on VCTK and LibriTTS (~500 hours of speech combin
 ---
 
 ## Inference
-```python
+```bash
 python infer.py \
     --input_wav degraded.wav \
     --output_wav restored.wav \
     --checkpoint semambapp.pth \
     --config config.yaml
 ```
+
+
+
+```bash
+python infer_folder.py \
+    --input_dir  /path/to/degraded_wavs \
+    --output_dir /path/to/restored_wavs \
+    --checkpoint semambapp.pth \
+    --config config.yaml
+```
+
 
 ---
 
