@@ -60,9 +60,62 @@ SEMamba++ can be trained on any dataset that provides speech, noise, and room im
 
 Pretrained weights are released on [Hugging Face🤗](https://huggingface.co/yongjoonlee/semambapp/resolve/main/semambapp.pth).
 
-The released model was trained on VCTK and LibriTTS (~500 hours of speech combined). The data preprocessing configuration followed ```config.yaml```. 
+The checkpoint used in the paper was trained with code that contained a code bug. We fixed the bug and retrained the model under the same configuration. The released checkpoint (Aug 2026) is the result of that retraining.
 
+<details>
+<summary>Code bug</summary>
+
+The channel FFN module for the third (last) resolution was not being utilized for that resolution. 
+It was used for the second resolution.
+
+**Wrong version** <br>
+(Second resolution) Time Mamba &rarr; Frequency GLP &rarr; Channel FFN1 &rarr; Channel FFN2  <br>
+
+(Third resolution) TIme Mamba &rarr; Frequency GLP 
+
+**Corrected version** <br>
+(Second resolution) Time Mamba &rarr; Frequency GLP &rarr; Channel FFN <br>
+
+(Third resolution) TIme Mamba &rarr; Frequency GLP &rarr; Channel FFN
+
+</details>
+
+The tables below report both scores from the paper and retrained model so that the released weights can be compared against
+the paper. Note in particular that the released checkpoint scores slightly higher on intrusive metrics (PESQ and LPS) across different datasets but scores slightly lower than the paper on the URGENT 2025 blind test.
+
+
+### AATC 2025
+
+|Name|SIG|BAK|OVRL|PESQ
+|---|---|---|---|---|
+|Degraded|2.89|3.02|2.47|1.91|
+|SEMamba++(paper)|3.45|4.01|3.18|1.84|
+|SEMamba++(retrained)|3.46|4.07|3.20|1.95|
+
+### URGENT 2025 val
+|Name|SCOREQ|UTMOS|OVRL|PESQ|LPS|
+|---|---|---|---|---|---|
+|Degraded|1.20|1.51|1.78|1.26|0.60
+|SEMamba++(paper)|2.67|2.82|3.20|1.51|0.61|
+|SEMamba++(retrained)|2.67|2.80|3.19|1.60|0.65|
+
+### URGENT 2025 blind test
+
+|Name|SCOREQ|UTMOS|OVRL
+|---|---|---|---|
+|Degraded|1.25|1.55|1.90|
+|SEMamba++(paper)|2.49|2.61|3.13|
+|SEMamba++(retrained)|2.35|2.47|3.07|
+
+### DNS 2020 test
+
+|Name|SIG|BAK|OVRL
+|---|---|---|---|
+|Degraded|3.053|2.509|2.255|
+|SEMamba++(paper)|3.487|4.020|3.206|
+|SEMamba++(retrained)|3.472|4.086|3.208|
 ---
+
 
 ## Inference
 ```bash
